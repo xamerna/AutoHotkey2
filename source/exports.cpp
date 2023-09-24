@@ -419,6 +419,16 @@ EXPORT(UINT_PTR) addScript(LPTSTR script, int waitexecute, DWORD aThreadID) {
 	return _addScript(script, waitexecute, aThreadID, int(g && (g->ExcptMode & EXCPTMODE_CATCH)));
 }
 
+
+EXPORT(HWND) ahkGetWindow()
+{
+#pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
+	if (g_hWnd)
+		return g_hWnd;
+	return 0;
+
+} 
+
 int _ahkExec(LPTSTR script, DWORD aThreadID, int _catch)
 {
 	AutoTLS atls;
@@ -723,6 +733,9 @@ IAhkApi* IAhkApi::Initialize() {
 	}
 	return &instance;
 }
+
+
+
 
 void IAhkApi::Finalize() {
 	memset(sObject, 0, sizeof(sObject));

@@ -30,7 +30,6 @@
 #include <windows.h>
 #include <winternl.h>
 
-#define EXPORT extern "C" __declspec(dllexport)
 
 typedef void *HMEMORYMODULE;
 
@@ -99,7 +98,7 @@ typedef struct {
  * All dependencies are resolved using default LoadLibrary/GetProcAddress
  * calls through the Windows API.
  */
-EXPORT HMEMORYMODULE MemoryLoadLibrary(const void *, size_t, bool = true);
+extern "C" __declspec(dllexport) HMEMORYMODULE MemoryLoadLibrary(const void *, size_t, bool = true);
 
 /**
  * Load EXE/DLL from memory location with the given size using custom dependency
@@ -120,12 +119,12 @@ HMEMORYMODULE MemoryLoadLibraryEx(const void *, size_t,
  * Get address of exported method. Supports loading both by name and by
  * ordinal value.
  */
-EXPORT FARPROC MemoryGetProcAddress(HMEMORYMODULE, LPCSTR);
+extern "C" __declspec(dllexport) FARPROC MemoryGetProcAddress(HMEMORYMODULE, LPCSTR);
 
 /**
  * Free previously loaded EXE/DLL.
  */
-EXPORT void MemoryFreeLibrary(HMEMORYMODULE);
+extern "C" __declspec(dllexport) void MemoryFreeLibrary(HMEMORYMODULE);
 
 /**
  * Execute entry point (EXE only). The entry point can only be executed

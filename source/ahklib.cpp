@@ -650,7 +650,7 @@ public:
 
 	STDMETHODIMP AddScript(BSTR Script, int Wait, UINT_PTR *pLine) { *pLine = addScript(Script, Wait, g_MainThreadID); return S_OK; }
 
-
+	
 	STDMETHODIMP AhkExec(BSTR Script, VARIANT_BOOL *pSuccess) { *pSuccess = ahkExec(Script, g_MainThreadID) ? VARIANT_TRUE : VARIANT_FALSE; return S_OK; }
 
 

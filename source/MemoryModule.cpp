@@ -780,7 +780,7 @@ void MemoryDefaultFreeLibrary(HCUSTOMMODULE module, void *userdata)
     FreeLibrary((HMODULE) module);
 }
 
-EXPORT HMEMORYMODULE MemoryLoadLibrary(const void *data, size_t size, bool callentry)
+extern "C" __declspec(dllexport) HMEMORYMODULE MemoryLoadLibrary(const void *data, size_t size, bool callentry)
 {
     return MemoryLoadLibraryEx(data, size, MemoryDefaultAlloc, MemoryDefaultFree, MemoryDefaultLoadLibrary, MemoryDefaultGetProcAddress, MemoryDefaultFreeLibrary, NULL, callentry);
 }
@@ -1045,7 +1045,7 @@ static int _find(const void *a, const void *b)
     return strcmp(*name, p->name);
 }
 
-EXPORT FARPROC MemoryGetProcAddress(HMEMORYMODULE mod, LPCSTR name)
+extern "C" __declspec(dllexport) FARPROC MemoryGetProcAddress(HMEMORYMODULE mod, LPCSTR name)
 {
     PMEMORYMODULE module = (PMEMORYMODULE)mod;
     unsigned char *codeBase = module->codeBase;
@@ -1123,7 +1123,7 @@ EXPORT FARPROC MemoryGetProcAddress(HMEMORYMODULE mod, LPCSTR name)
     return (FARPROC)(LPVOID)(codeBase + (*(DWORD *) (codeBase + exports->AddressOfFunctions + (idx*4))));
 }
 
-EXPORT void MemoryFreeLibrary(HMEMORYMODULE mod)
+extern "C" __declspec(dllexport) void MemoryFreeLibrary(HMEMORYMODULE mod)
 {
     PMEMORYMODULE module = (PMEMORYMODULE)mod;
 
