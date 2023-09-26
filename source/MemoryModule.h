@@ -24,6 +24,8 @@
  *
  */
 
+#define EXPORT_(_rettype_) extern "C" _rettype_ __stdcall
+
 #ifndef __MEMORY_MODULE_HEADER
 #define __MEMORY_MODULE_HEADER
 
@@ -98,7 +100,7 @@ typedef struct {
  * All dependencies are resolved using default LoadLibrary/GetProcAddress
  * calls through the Windows API.
  */
-extern "C" __declspec(dllexport) HMEMORYMODULE MemoryLoadLibrary(const void *, size_t, bool = true);
+EXPORT_ (HMEMORYMODULE) MemoryLoadLibrary(const void *, size_t, bool = true);
 
 /**
  * Load EXE/DLL from memory location with the given size using custom dependency
@@ -119,12 +121,12 @@ HMEMORYMODULE MemoryLoadLibraryEx(const void *, size_t,
  * Get address of exported method. Supports loading both by name and by
  * ordinal value.
  */
-extern "C" __declspec(dllexport) FARPROC MemoryGetProcAddress(HMEMORYMODULE, LPCSTR);
+EXPORT_(FARPROC) MemoryGetProcAddress(HMEMORYMODULE, LPCSTR);
 
 /**
  * Free previously loaded EXE/DLL.
  */
-extern "C" __declspec(dllexport) void MemoryFreeLibrary(HMEMORYMODULE);
+EXPORT_(void) MemoryFreeLibrary(HMEMORYMODULE);
 
 /**
  * Execute entry point (EXE only). The entry point can only be executed

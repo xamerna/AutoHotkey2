@@ -111,7 +111,7 @@
       <TerminalServerAware Condition="!$(ConfigDll)">false</TerminalServerAware>
       <DataExecutionPrevention>false</DataExecutionPrevention>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
-      <ProgramDatabaseFile Condition="$(ConfigDll)">$(OutDir)\$(TargetName)_dll.pdb</ProgramDatabaseFile>
+      <ProgramDatabaseFile Condition="$(ConfigDll)">$(OutDir)\$(TargetName).pdb</ProgramDatabaseFile>
     </Link>
   </ItemDefinitionGroup>
   <!-- platform: win32 -->
@@ -333,6 +333,9 @@
   <PropertyGroup Condition="$(ConfigDebug)">
     <LinkIncremental>true</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugDll|Win32'">
+    <CopyLocalDebugSymbols>true</CopyLocalDebugSymbols>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <CustomBuild>
       <Command>$(Masm) /Cx /Fo"$(SolutionDir)temp\$(Platform)\%(Filename).obj" /c "%(FullPath)"</Command>
@@ -342,6 +345,10 @@
     </CustomBuild>
     <Link>
       <ModuleDefinitionFile Condition="$(ConfigDll)">source\resources\COMServer.def</ModuleDefinitionFile>
+      <GenerateDebugInformation Condition="'$(Configuration)|$(Platform)'=='DebugDll|Win32'">DebugFull</GenerateDebugInformation>
+      <GenerateMapFile Condition="'$(Configuration)|$(Platform)'=='DebugDll|Win32'">true</GenerateMapFile>
+      <MapExports Condition="'$(Configuration)|$(Platform)'=='DebugDll|Win32'">true</MapExports>
+      <AssemblyDebug Condition="'$(Configuration)|$(Platform)'=='DebugDll|Win32'">true</AssemblyDebug>
     </Link>
     <ClCompile>
       <TreatWarningAsError Condition="!$(ConfigDebug)">true</TreatWarningAsError>

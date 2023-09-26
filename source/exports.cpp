@@ -420,12 +420,18 @@ EXPORT(UINT_PTR) addScript(LPTSTR script, int waitexecute, DWORD aThreadID) {
 }
 
 
-EXPORT(HWND) ahkGetWindow()
+EXPORT(HWND) ahkGetWindow(DWORD aThreadID)
 {
 #pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
-	if (g_hWnd)
-		return g_hWnd;
-	return 0;
+	AutoTLS atls;
+	int ret = atls.Enter(aThreadID);
+	if (!ret)
+		return 0;
+	else if (ret == 2) {
+		if (g_hWnd)
+			return g_hWnd;
+		return 0;
+	}
 
 } 
 
