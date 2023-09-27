@@ -463,7 +463,7 @@ EXPORT(HWND) ahkGetWindow(DWORD aThreadID)
 } 
 
 
-EXPORT(int) ahkTerminateScript(DWORD aThreadID)
+EXPORT(int) ahkTerminateScript(DWORD aThreadID, HWND aHwnd)
 {
 #pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
 	AutoTLS atls;
@@ -474,8 +474,10 @@ EXPORT(int) ahkTerminateScript(DWORD aThreadID)
 	else if (ret == 2) {
 		if (g_script)
 		{
-			
-			g_script->TerminateApp(result ? EXIT_CRITICAL : EXIT_EXIT, result);
+			DWORD_PTR result=0;
+			if (!PostThreadMessage(aThreadID, WM_QUIT, 0, MAXLONG_PTR) && aHwnd)
+				SendMessageTimeout(aHwnd, WM_CLOSE, 0, 0, SMTO_ABORTIFHUNG, 500, &result);
+			//g_script->TerminateApp(result ? EXIT_CRITICAL : EXIT_EXIT, result);
 			return result;
 		}
 		else

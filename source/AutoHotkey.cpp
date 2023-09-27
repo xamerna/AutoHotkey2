@@ -559,7 +559,7 @@ unsigned __stdcall ThreadMain(void *data)
 	} while (reload);
 
 	if (hEvent) {
-		param[4] = 0;
+		//param[4] = 0;
 		SetEvent(hEvent);
 		CloseHandle(hEvent);
 	}

@@ -5,7 +5,7 @@
 #define EXPORT(_rettype_) extern "C" _rettype_ __stdcall
 
 EXPORT(DWORD)  NewThread(LPTSTR aScript, LPTSTR aCmdLine = NULL, LPTSTR aTitle = NULL);
-EXPORT(int) ahkTerminateScript(DWORD aThreadID);
+EXPORT(int) ahkTerminateScript(DWORD aThreadID, HWND aHwnd);
 EXPORT(HWND) ahkGetWindow(DWORD aThreadID = 0);
 EXPORT(UINT_PTR) addScript(LPTSTR script, int waitexecute = 0, DWORD aThreadID = 0);
 EXPORT(UINT_PTR) ahkExecuteLine(UINT_PTR line, int aMode, int wait, DWORD aThreadID = 0);
