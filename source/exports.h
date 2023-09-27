@@ -13,6 +13,7 @@ EXPORT(UINT_PTR) ahkFindFunc(LPTSTR aFuncName, DWORD aThreadID = 0);
 EXPORT(UINT_PTR) ahkFindLabel(LPTSTR aLabelName, DWORD aThreadID = 0);
 EXPORT(LPTSTR) ahkFunction(LPTSTR func, LPTSTR param1 = NULL, LPTSTR param2 = NULL, LPTSTR param3 = NULL, LPTSTR param4 = NULL, LPTSTR param5 = NULL, LPTSTR param6 = NULL, LPTSTR param7 = NULL, LPTSTR param8 = NULL, LPTSTR param9 = NULL, LPTSTR param10 = NULL, DWORD aThreadID = 0);
 EXPORT(LPTSTR) ahkGetVar(LPTSTR name, int getVar = 0, DWORD aThreadID = 0);
+//EXPORT(int) ahkGetVarEx(LPTSTR name, LPTSTR value, int getVar = 0, DWORD aThreadID = 0);
 EXPORT(int) ahkAssign(LPTSTR name, LPTSTR value, DWORD aThreadID = 0);
 EXPORT(int) ahkExec(LPTSTR script, DWORD aThreadID = 0);
 EXPORT(int) ahkLabel(LPTSTR aLabelName, int nowait = 0, DWORD aThreadID = 0);

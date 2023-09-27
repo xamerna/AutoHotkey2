@@ -193,6 +193,32 @@ EXPORT(LPTSTR) ahkGetVar(LPTSTR name, int getVar, DWORD aThreadID)
 	return NULL;
 }
 
+
+//EXPORT(int) ahkGetVarEx(LPTSTR name, LPTSTR value, int getVar, DWORD aThreadID)
+//{
+//#pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
+//	AutoTLS atls;
+//	if (atls.Enter(aThreadID)) {
+//		if (auto ahkvar = g_script->FindGlobalVar(name)) {
+//			if (getVar) {
+//				if (ahkvar->mType == VAR_VIRTUAL)
+//					return NULL;
+//				value = (LPTSTR)(UINT_PTR)ahkvar;
+//				return 1;
+//			}
+//			else {
+//				TCHAR buf[MAX_NUMBER_SIZE];
+//				ExprTokenType exp;
+//				ahkvar->ToTokenSkipAddRef(exp);
+//				auto str = TokenToString(exp, buf);
+//				value = _tcsdup(str);
+//				return 1;
+//			}
+//		}
+//	}
+//	return 0;
+//}
+
 EXPORT(int) ahkAssign(LPTSTR name, LPTSTR value, DWORD aThreadID)
 {
 #pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
