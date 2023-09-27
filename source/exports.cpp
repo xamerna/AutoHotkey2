@@ -430,10 +430,33 @@ EXPORT(HWND) ahkGetWindow(DWORD aThreadID)
 	else if (ret == 2) {
 		if (g_hWnd)
 			return g_hWnd;
-		return 0;
+		else
+			return 0;
 	}
-
+	return 0;
 } 
+
+
+EXPORT(int) ahkTerminateScript(DWORD aThreadID)
+{
+#pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
+	AutoTLS atls;
+	int result = -3;
+	int ret = atls.Enter(aThreadID);
+	if (!ret)
+		return 0;
+	else if (ret == 2) {
+		if (g_script)
+		{
+			
+			g_script->TerminateApp(result ? EXIT_CRITICAL : EXIT_EXIT, result);
+			return result;
+		}
+		else
+			return result;
+	}
+	return result;
+}
 
 int _ahkExec(LPTSTR script, DWORD aThreadID, int _catch)
 {

@@ -780,9 +780,9 @@ void MemoryDefaultFreeLibrary(HCUSTOMMODULE module, void *userdata)
     FreeLibrary((HMODULE) module);
 }
 
-EXPORT_(HMEMORYMODULE) MemoryLoadLibrary(const void *data, size_t size, bool callentry)
+HMEMORYMODULE MemoryLoadLibrary(const void *data, size_t size, bool callentry)
 {
-#pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
+//#pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
     return MemoryLoadLibraryEx(data, size, MemoryDefaultAlloc, MemoryDefaultFree, MemoryDefaultLoadLibrary, MemoryDefaultGetProcAddress, MemoryDefaultFreeLibrary, NULL, callentry);
 }
 
@@ -1046,9 +1046,9 @@ static int _find(const void *a, const void *b)
     return strcmp(*name, p->name);
 }
 
-EXPORT_(FARPROC) MemoryGetProcAddress(HMEMORYMODULE mod, LPCSTR name)
+FARPROC MemoryGetProcAddress(HMEMORYMODULE mod, LPCSTR name)
 {
-#pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
+//#pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
     PMEMORYMODULE module = (PMEMORYMODULE)mod;
     unsigned char *codeBase = module->codeBase;
     DWORD idx = 0;
@@ -1125,9 +1125,9 @@ EXPORT_(FARPROC) MemoryGetProcAddress(HMEMORYMODULE mod, LPCSTR name)
     return (FARPROC)(LPVOID)(codeBase + (*(DWORD *) (codeBase + exports->AddressOfFunctions + (idx*4))));
 }
 
-EXPORT_(void) MemoryFreeLibrary(HMEMORYMODULE mod)
+void MemoryFreeLibrary(HMEMORYMODULE mod)
 {
-#pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
+//#pragma comment(linker,"/export:" __FUNCTION__"=" __FUNCDNAME__)
     PMEMORYMODULE module = (PMEMORYMODULE)mod;
 
     if (module == NULL) {
