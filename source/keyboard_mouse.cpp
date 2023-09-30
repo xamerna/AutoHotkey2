@@ -4452,6 +4452,8 @@ bif_impl void SendText(StrArg aText)
 	SendKeys(aText, SCM_RAW_TEXT, g->SendMode);
 }
 
+
+
 bif_impl void SendInput(StrArg aKeys)
 {
 	SendKeys(aKeys, SCM_NOT_RAW, g->SendMode == SM_INPUT_FALLBACK_TO_PLAY ? SM_INPUT_FALLBACK_TO_PLAY : SM_INPUT);
